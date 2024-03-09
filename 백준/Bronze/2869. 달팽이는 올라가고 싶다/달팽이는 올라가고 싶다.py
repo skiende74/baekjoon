@@ -1,3 +1,4 @@
 import math
-A,B,V = map(int,input().split())
-print(  int(math.ceil((V-A)/(A-B)) +1))
+A,B,V = map(int, input().split())
+result = V-A
+print(math.ceil(result/(A-B))+1)
