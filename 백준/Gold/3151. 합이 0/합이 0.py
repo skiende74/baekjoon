@@ -23,12 +23,11 @@ def custom(seq, left, right, goal):
     return max_idx
 
 answer = 0
-for i in range(N):
-    u1 = seq[i]
-    for j in range(i+1, N):
-        u2 = seq[j]
+for i in range(N-1):
+    for j in range(i+1, N-1):
+        u1, u2 = seq[i], seq[j]
+        if u1+u2+seq[j+1] > 0: continue
         u = custom(seq, j+1, N-1,-u1-u2)
-        if u1+u2+seq[u]!= 0: continue
         l = max(j+1, lower(seq, j+1, N-1,-u1-u2))
         if u<l: continue
         answer += u-l+1
