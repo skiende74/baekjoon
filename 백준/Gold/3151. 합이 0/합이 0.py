@@ -1,18 +1,11 @@
+from bisect import bisect_left, bisect_right
 N = int(input())
 seq = list(map(int, input().split()))
 seq.sort()
+seq_inv = seq.copy()[::-1]
 
-def lower(seq, left, right, goal):
-    min_idx = len(seq)+1
-    while left <= right:
-        mid = (left + right) //2
-        if seq[mid] >= goal: 
-            min_idx = min(min_idx, mid)
-            right = mid-1
-        else: left = mid + 1
-    return min_idx
-
-def custom(seq, left, right, goal):
+def custom(seq, goal):
+    left, right = 0, len(seq)-1
     max_idx = -1
     while left <= right:
         mid = (left + right) //2
@@ -21,15 +14,14 @@ def custom(seq, left, right, goal):
             left = mid + 1
         else: right = mid - 1
     return max_idx
-
+    
 answer = 0
 for i in range(N-1):
     for j in range(i+1, N-1):
         u1, u2 = seq[i], seq[j]
         if u1+u2+seq[j+1] > 0: continue
-        u = custom(seq, j+1, N-1,-u1-u2)
-        l = max(j+1, lower(seq, j+1, N-1,-u1-u2))
-        if u<l: continue
-        answer += u-l+1
-        #print(u,l)
+        u = bisect_right(seq, -u1-u2)
+        l = max(j+1, bisect_left(seq,-u1-u2))
+        answer += u-l
+        # print(i,j,j+1,l,u)
 print(answer)
