@@ -26,5 +26,5 @@ def dijkstra(start):
                 heappush(pq, (dist[i2], i2))
 
 dijkstra(k)
-dist = list(map(lambda x: str(x) if x<MAX else 'INF', dist))
+dist = list(map(lambda x: str(x) if x!=MAX else 'INF', dist))
 print('\n'.join(dist[1:]))
