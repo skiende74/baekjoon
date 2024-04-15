@@ -1,51 +1,46 @@
-import heapq
-import sys
+from heapq import heappush, heappop
+import sys 
+
 input = sys.stdin.readline
-INF = int(1e9)
 
-
+INF = 10**9
 def dijkstra(start):
-    distance = [INF] * (n+1)
-    q = []
-    heapq.heappush(q, (0, start))
-    distance[start] = 0
-    while q:
-        dist, now = heapq.heappop(q)
-        if distance[now] < dist:
-            continue
-        for i in graph[now]:
-            cost = dist + i[1]
-            if cost < distance[i[0]]:
-                distance[i[0]] = cost
-                heapq.heappush(q, (cost, i[0]))
-    return distance
+    dist = [INF]*(V+1)
+    dist[start]=0
 
+    PQ = [(0, start)]
+    while PQ:
+        d, i = heappop(PQ)
+        if dist[i] < d: continue
+
+        for j,w in graph[i]:
+            if dist[j] <= d+w: continue
+            
+            dist[j] = d+w
+            heappush(PQ, (d+w, j))
+    return dist
 
 T = int(input())
 for _ in range(T):
-    n, m, t = map(int, input().split())
-    s, g, h = map(int, input().split())
+    V, E, t = map(int,input().split())
+    start, g, h = map(int,input().split())
 
-    graph = [[] for _ in range(n+1)]
-    end = []
+    graph = [[] for _ in range(V+1)]
+    for _ in range(E):
+        i,j,w = map(int,input().split())
+        graph[i].append((j,w))
+        graph[j].append((i,w))
 
-    for _ in range(m):
-        a, b, d = map(int, input().split())
-        graph[a].append((b, d))
-        graph[b].append((a, d))
+    ends = [int(input()) for _ in range(t)]
 
-    for i in range(t):
-        end.append(int(input()))
+    dist = dijkstra(start)
+    dist_g = dijkstra(g)
+    dist_h = dijkstra(h)
 
-    Ds = dijkstra(s)
-    Dg = dijkstra(g)
-    Dh = dijkstra(h)
-
-    result = []
-    for e in end:
-        if Ds[g] + Dg[h] + Dh[e] == Ds[e] or Ds[h] + Dh[g] + Dg[e] == Ds[e]:
-            result.append(e)
-
-    result.sort()
-    for r in result:
-        print(r, end=' ')
+    answer = []
+    for e in ends:
+        if dist[e] == dist[g]+dist_g[h]+dist_h[e] or dist[e] == dist[h]+dist_h[g]+dist_g[e]:
+            answer.append(e)
+    answer.sort()
+    for ans in answer:
+        print(ans, end=' ')
