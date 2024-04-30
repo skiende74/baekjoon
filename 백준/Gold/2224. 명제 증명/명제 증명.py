@@ -14,7 +14,6 @@ for _ in range(E):
 
 for k in nodes:
     for i in nodes:
-        if i not in graph: continue
         for j in nodes:
             if graph[i][k] and graph[k][j]:
                 graph[i][j] = 1
