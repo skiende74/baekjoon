@@ -6,7 +6,7 @@ V = float(V)
 N = int(N)
 queries = [list(map(float,input().split())) for _ in range(N)]
 
-n = 5*10**5
+n = 10**5
 dh = 1/n
 result = []
 for a,b,h in queries:
