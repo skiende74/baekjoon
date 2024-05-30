@@ -57,4 +57,4 @@ for l in range(Q):
             dfs(i0,j0, root.children[grid[i0][j0]])
     
     M = max(map(len,ans_set))
-    print(get_scores(ans_set), sorted( filter(lambda x: len(x) == M, ans_set), key=lambda x: (-len(x), x))[0], len(ans_set))
+    print(get_scores(ans_set), sorted( filter(lambda x: len(x) == M, ans_set))[0], len(ans_set))
