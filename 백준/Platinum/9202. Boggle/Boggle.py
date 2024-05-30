@@ -27,7 +27,7 @@ def get_scores(ans_set):
 def dfs(i,j, t):
     global ans
     if t.is_end: ans_set.add(ans)
-    if len(ans)>=9: return
+    if len(ans)>=8: return
 
     for di, dj in zip([0,0,-1,1,-1,-1,1,1], [-1,1,0,0,-1,1,-1,1]):
         i2,j2 = i+di, j+dj
