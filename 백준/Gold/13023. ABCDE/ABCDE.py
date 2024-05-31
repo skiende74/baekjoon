@@ -15,8 +15,8 @@ visited = [False]*N
 def dfs(i):
     global cnt, ans    
     if cnt == 4:
-        ans = 1
-        return
+        print(1)
+        exit()
     for j in graph[i]:
         if visited[j]: continue
         cnt += 1
@@ -28,4 +28,4 @@ for i in range(N):
     visited[i] = True
     dfs(i)
     visited[i] = False
-print(ans)
+print(0)
