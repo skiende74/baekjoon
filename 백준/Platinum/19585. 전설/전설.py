@@ -1,21 +1,25 @@
-from collections import deque
-c,n = map(int,input().split())
-col_dct = {}
-name_dct = {}
-for _ in range(c):
-  col_dct[input()]=1
-for _ in range(n):
-  name_dct[input()]=1
+import sys
+input = sys.stdin.readline
 
-q = int(input())
-for _ in range(q):
-  s = input()
-  ans = False
-  for k in range(max(1,len(s)-1000), min(len(s),1001)):
-    if col_dct.get(s[:k]) and name_dct.get(s[k:]):
-      ans=True
-      break
-  if ans:
-    print("Yes")
-  else:
-    print("No")
+def check(word):
+  now = colors
+  for i in range(len(word)):
+    if now.get(0) and word[i:] in names:
+      return 1
+    if not now.get(word[i]):
+      return
+    now = now[word[i]]
+
+C,N = map(int,input().split())
+colors = {}
+for _ in range(C):
+  now = colors
+  for c in input().strip():
+    if not now.get(c):
+      now[c] = {}
+    now = now[c]
+  now[0] = 1
+names = {input().strip() for i in range(N)}
+
+for _ in range(int(input())):
+  print("Yes" if check(input().strip()) else "No")
