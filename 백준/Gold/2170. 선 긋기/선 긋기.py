@@ -1,3 +1,5 @@
+import sys
+input = sys.stdin.readline
 N= int(input())
 seq = [tuple(map(int,input().split())) for _ in range(N)]
 seq.sort()
