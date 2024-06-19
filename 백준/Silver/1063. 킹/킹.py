@@ -1,8 +1,3 @@
-king, stone, M = input().split()
-M = int(M)
-N = 8
-
-commands = [ input() for _ in range(M)]
 def dirs(com):
     res = [0,0]
     if com[0] == 'L': res[1] = -1
@@ -22,17 +17,19 @@ def get_pose(i,j):
     i = f'{i+1}'
     return j+i
 
+king, stone, M = input().split()
 i, j = get_idx(king)
 i_, j_ = get_idx(stone)
 
-for command in commands:
-    di, dj = dirs(command)
+for _ in range(int(M)):
+    di, dj = dirs(input())
     i2, j2 = i+di, j+dj
-    if not(0<=i2<N and 0<=j2<N): continue
+    if not(0<=i2<8 and 0<=j2<8): continue
     if (i2,j2) == (i_,j_): 
-        if not(0<=i_+di<N and 0<=j_+dj<N): continue
+        if not(0<=i_+di<8 and 0<=j_+dj<8): continue
         i_, j_ = i_+di, j_+dj
     i, j = i2, j2
+    
 print(get_pose(i, j))
 print(get_pose(i_, j_))
        
