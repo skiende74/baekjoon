@@ -1,7 +1,6 @@
 seq = input()
 N = len(seq)
-is_tag = 0
-ans = []
+is_tag = False
 stack = ''
 
 x = ''
