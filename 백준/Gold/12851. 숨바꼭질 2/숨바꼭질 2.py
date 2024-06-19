@@ -9,8 +9,8 @@ def bfs(start):
     while Q:
         i = Q.popleft()
         for j in (2*i, i-1, i+1):
-            if 0<=j<=N and dist[j] >= dist[i]+1: # ( 경로합치기위해선 재방문도 필요 )
-                if dist[j] == 10**6:  Q.append(j) # 딱한번만 큐에넣는다. 그리고 끝나지 않았을때만.
+            if 0<=j<=N and dist[j] >= dist[i]+1:
+                if dist[j] == 10**6:  Q.append(j)
                 dist[j] = dist[i] + 1
                 count[j] += count[i]
 s, e = map(int,input().split())
