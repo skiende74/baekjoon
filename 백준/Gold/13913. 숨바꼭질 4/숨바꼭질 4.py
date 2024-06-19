@@ -12,7 +12,7 @@ def bfs(start):
             if 0<=j<=10**5 and not visited[j]:
                 visited[j] = True
                 Q.append(j)
-                if move[j] == j: move[j] = i
+                move[j] = i
     return N+2
 
 def find(j):
