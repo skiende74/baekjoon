@@ -1,3 +1,5 @@
+import sys
+input = sys.stdin.readline
 N, M, K = map(int,input().split())
 grid = [list(map(int,input().split())) for _ in range(N)]
 
