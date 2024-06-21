@@ -38,7 +38,12 @@ def go_down():
             if c == i+1: continue
             for i2 in range(c, i+1)[::-1]: grid[i2][j] = grid[i2-c][j]
             for i2 in range(c): grid[i2][j] = '.'
-
+def go_down2():
+    for j in range(M):
+        for i in range(N):
+            for i2 in range(N-1-i):
+                if grid[i2][j] != '.' and grid[i2+1][j] == '.':
+                    grid[i2][j], grid[i2+1][j] = grid[i2+1][j], grid[i2][j]
     
 
 def print2d():
@@ -48,7 +53,7 @@ def print2d():
 for k in range(10**8):
     is_boom = boom()
     #print2d()
-    go_down()
+    go_down2()
     if not is_boom: break
     #print2d()
 print(k)
