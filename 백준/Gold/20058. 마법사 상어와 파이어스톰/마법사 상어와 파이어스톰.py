@@ -1,10 +1,5 @@
 import sys
-sys.setrecursionlimit(10**5)
-n, Q = map(int,input().split())
-N = 2**n
-
-grid = [list(map(int,input().split())) for _ in range(N)]
-steps = list(map(int,input().split()))
+sys.setrecursionlimit(10**4)
 
 def rotate(i0,j0, l):
     if l<=1: return
@@ -40,15 +35,6 @@ def decrease():
             if len(adj)<3: grid_[i][j] = max(0, grid[i][j]-1)
     grid = grid_
     
-
-def print2d():
-    print('-'*40)
-    for g in grid: print(*g)
-
-for step in steps:
-    rotate_step(step)
-    decrease()
-
 def count_max():
     visited = [[False]*N for _ in range(N)]
     def dfs(i,j):
@@ -69,6 +55,16 @@ def count_max():
             dfs(i,j)
             max_inner = max(max_inner, inner_cnt)
     return max_inner
+
+n, Q = map(int,input().split())
+N = 2**n
+
+grid = [list(map(int,input().split())) for _ in range(N)]
+steps = list(map(int,input().split()))
+
+for step in steps:
+    rotate_step(step)
+    decrease()
 
 M = max(map(max, grid))
 print(sum(map(sum, grid)))
