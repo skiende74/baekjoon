@@ -1,23 +1,9 @@
 import sys
-sys.setrecursionlimit(10**4)
-
+sys.setrecursionlimit(2**12+4)
+input = lambda: sys.stdin.readline().rstrip()
 def rotate(i0,j0, l):
-    if l<=1: return
-    stack = []
-    i, j = i0,j0
-    ds = [*[(0,1)]*(l-1), *[(1,0)]*(l-1), *[(0,-1)]*(l-1), *[(-1,0)]*(l-1)]
-    for di, dj in ds:
-        i, j = i+di, j+dj
-        stack.append(grid[i][j])
-    
-    stack = stack[-(l-1):] + stack[:-(l-1)]
-
-    stack.reverse()
-    i, j = i0, j0
-    for di, dj in ds:
-        i, j = i+di, j+dj
-        grid[i][j] = stack.pop()
-    rotate(i0+1, j0+1, l-2)
+    for i in range(l):
+        grid[i0+i][j0:j0+l] = list(reversed(grid_tr[j0+i][i0:i0+l]))
 
 def rotate_step(L):
     l = 2**L
@@ -30,7 +16,7 @@ def decrease():
     grid_ = [row.copy() for row in grid]
     for i in range(N):
         for j in range(N):
-            adj = [(i+di,j+dj) for di,dj in zip([0,0,-1,1],[-1,1,0,0])
+            adj = ['' for di,dj in zip([0,0,-1,1],[-1,1,0,0])
                    if 0<=i+di<N and 0<=j+dj<N and grid[i+di][j+dj]>0]
             if len(adj)<3: grid_[i][j] = max(0, grid[i][j]-1)
     grid = grid_
@@ -63,6 +49,7 @@ grid = [list(map(int,input().split())) for _ in range(N)]
 steps = list(map(int,input().split()))
 
 for step in steps:
+    grid_tr = list(zip(*grid))
     rotate_step(step)
     decrease()
 
