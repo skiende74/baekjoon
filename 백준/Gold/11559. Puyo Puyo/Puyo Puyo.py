@@ -32,28 +32,13 @@ def boom():
 
 def go_down():
     for j in range(M):
-        for i in range(N)[::-1]:
-            c = 0
-            while i-c>=0 and grid[i-c][j] == '.': c += 1
-            if c == i+1: continue
-            for i2 in range(c, i+1)[::-1]: grid[i2][j] = grid[i2-c][j]
-            for i2 in range(c): grid[i2][j] = '.'
-def go_down2():
-    for j in range(M):
         for i in range(N):
             for i2 in range(N-1-i):
                 if grid[i2][j] != '.' and grid[i2+1][j] == '.':
                     grid[i2][j], grid[i2+1][j] = grid[i2+1][j], grid[i2][j]
-    
-
-def print2d():
-    for g in grid:
-        print(*g)
 
 for k in range(10**8):
     is_boom = boom()
-    #print2d()
-    go_down2()
+    go_down()
     if not is_boom: break
-    #print2d()
 print(k)
