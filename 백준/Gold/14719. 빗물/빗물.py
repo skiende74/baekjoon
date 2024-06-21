@@ -2,10 +2,12 @@ N, M = map(int,input().split())
 seq = list(map(int,input().split()))
 
 ans = 0
-for i in range(1, N+1)[::-1]:
-    prev = -1
-    for j in range(M):
-        if seq[j] >= i:
-            if prev != -1: ans += (j-prev-1)
-            prev = j
-print(ans)           
+stack = []
+
+for i, s in enumerate(seq):
+    while stack and seq[stack[-1]]<=s:
+        j = stack.pop()
+        if not stack: continue
+        ans += (min(s,seq[stack[-1]])-seq[j])*(i-stack[-1]-1)
+    stack.append(i)
+print(ans)
