@@ -35,22 +35,13 @@ def fishing():
             ans += z
             return
 
-def print2d():
-    print('-'*40)
-    for row in grid:
-        print(*row)
-
 import sys
 sys.setrecursionlimit(10**4)
 input = lambda: sys.stdin.readline().rstrip()
-
 N, M, S = map(int,input().split())
-sharks = [list(map(int,input().split())) for _ in range(S)]
-
-dir = {1:[-1,0],2:[1,0],3:[0,1],4:[0,-1]}
 grid = [[0]*M for _ in range(N)]
-for s in sharks:
-    i, j , s, d, sz = s
+for _ in range(S):
+    i, j , s, d, sz = map(int,input().split())
     grid[i-1][j-1] = (s,d,sz)
 
 ans = 0
