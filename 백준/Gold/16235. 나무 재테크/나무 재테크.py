@@ -43,23 +43,11 @@ def winter():
         for j in range(N):
             grid[i][j] += supply[i][j]
 
-def print2d(): pass
-def print2d2():
-    print('-'*40)
-    for i in range(N):
-        for j in range(N):
-            print(len(tree[i][j]), end=' ')
-        print()
-print2d()
 for _ in range(K):
     spring()
-    print2d()
     summer()
-    print2d()
     fall()
-    print2d()
     winter()
-    print2d()
 
 print(sum(
     [
