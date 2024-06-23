@@ -1,16 +1,15 @@
 def next_pose(s, d, i, j):
     if d == 1:
-        if i-s<0: return next_pose(s-i, 2, 0, j)
+        if i-s<0: return next_pose((s-i)%(2*N-2), 2, 0, j)
         return (i-s, j, d)
     if d == 2:
-        if i+s>N-1: return next_pose(s-(N-1-i), 1, N-1, j)
+        if i+s>N-1: return next_pose((s-(N-1-i))%(2*N-2), 1, N-1, j)
         return (i+s, j, d)
     if d == 3:
-        if j+s>M-1: return next_pose(s-(M-1-j), 4, i, M-1)
+        if j+s>M-1: return next_pose((s-(M-1-j))%(2*M-2), 4, i, M-1)
         return (i, j+s, d)
     else:
-        if d!= 4: print('ERROR')
-        if j-s<0: return next_pose(s-j, 3, i, 0)
+        if j-s<0: return next_pose((s-j)%(2*M-2), 3, i, 0)
         return (i, j-s, d)
 
 def move_shark():
@@ -54,11 +53,8 @@ for s in sharks:
     i, j , s, d, sz = s
     grid[i-1][j-1] = (s,d,sz)
 
-
-#print2d()
 ans = 0
 for j in range(M):
     fishing()
     move_shark()
-    #print2d()
 print(ans)
