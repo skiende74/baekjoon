@@ -1,8 +1,8 @@
-from bisect import bisect_left
+from collections import deque
 N, Q, K = map(int,input().split())
 grid = [[5]*N for _ in range(N)]
 supply = [list(map(int,input().split())) for _ in range(N)]
-tree = [[[] for _ in range(N)] for _ in range(N)]
+tree = [[deque([]) for _ in range(N)] for _ in range(N)]
 dead = [[[] for _ in range(N)] for _ in range(N)]
 
 for _ in range(Q):
@@ -18,8 +18,8 @@ def spring():
                         grid[i][j] -= t
                         tree[i][j][idx] += 1
                     else:
-                        dead[i][j] = tree[i][j][idx:]
-                        tree[i][j] = tree[i][j][:idx]
+                        dead[i][j] = list(tree[i][j])[idx:]
+                        tree[i][j] = deque(list(tree[i][j])[:idx])
                         break 
 def summer():
     for i in range(N):
@@ -37,8 +37,7 @@ def fall():
                 for di, dj in zip([-1,-1,-1,0,0,1,1,1],[-1,0,1,-1,1,-1,0,1]): 
                     i2,j2 = i+di, j+dj
                     if not(0<=i2<N and 0<=j2<N): continue
-                    tree[i2][j2].insert(bisect_left(tree[i2][j2], 1), 1)
-
+                    tree[i2][j2].appendleft(1)
 def winter():
     for i in range(N):
         for j in range(N):
