@@ -1,14 +1,13 @@
-# 순열. seq도 중복 X
 def dfs():
     prev = 0
     if len(res) == M:
-        ans.append(res.copy())
+        print(' '.join(map(str, res)))
         return
     
     for j in range(N):
         if visited[j] or seq[j] == prev: continue
         visited[j] = True
-        res.append(j)
+        res.append(seq[j])
         prev = seq[j]
         dfs()
         res.pop()
@@ -19,13 +18,6 @@ N,M = map(int,input().split())
 seq = list(map(int,input().split()))
 seq.sort()
 
-res, ans = [], []
+res = []
 visited = [False]*N
 dfs()
-
-used = set()
-for res in ans:
-    r = ' '.join(map(lambda i: str(seq[i]), res))
-    if r in used: continue
-    print(r)
-    used.add(r)
