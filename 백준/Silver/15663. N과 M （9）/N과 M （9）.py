@@ -10,7 +10,6 @@ def dfs():
         dfs()
         res.pop()
 
-
 N,M = map(int,input().split())
 seq = list(map(int,input().split()))
 seq.sort()
@@ -18,7 +17,6 @@ seq.sort()
 res, ans = [], []
 dfs()
 
-ans2 = sorted({ tuple(map(lambda i: str(seq[i]), res)) for res in ans })
 used = set()
 for res in ans:
     r = ' '.join(map(lambda i: str(seq[i]), res))
