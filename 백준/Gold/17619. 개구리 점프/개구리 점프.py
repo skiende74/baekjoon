@@ -1,24 +1,40 @@
-def union(i,j):
-    r1, r2 = find(i),find(j)
-    r1, r2 = min(r1,r2), max(r1,r2)
-    parent[r2] = r1
-def find(i):
-    if parent[i] == i: return i
-    parent[i] = find(parent[i])
-    return parent[i]
+import sys
+n, m = map(int, input().split())
+log = [[-1, -1, 0]]
+parent = [i for i in range(n+1)]
 
-N, Q = map(int,input().split())
-lines = [[i, *list(map(int,input().split()))[:-1]] for i in range(N)]
-lines.sort(key=lambda x: (x[1],x[2]))
+def find(x):
+    if x == parent[x]:
+        return x
+    else:
+        parent[x] = find(parent[x])
+        return parent[x]
 
-parent = list(range(N))
-prev = lines[0]
-for i, s,e in lines:
-    if prev[2] >= s:
-        union(i, prev[0])
-    prev = i,s,e
+def union(x, y):
+    x = find(x)
+    y = find(y)
+    if x < y:
+        parent[y] = x
+    else:
+        parent[x] = y
 
-for _ in range(Q):
-    i,j = map(int,input().split())
-    print(1 if find(i-1)==find(j-1) else 0)
+for i in range(n):
+    s, e, h = map(int, sys.stdin.readline().rstrip().split())
+    log.append([s, e, i+1])
 
+log.sort(key=lambda x: (x[0], x[1]))
+x, y, _ = log[1]
+for i in range(2, len(log)):
+    nx, ny, _ = log[i]
+    if nx <= y:
+        union(log[i-1][2], log[i][2])
+        y = max(y, ny)
+    else:
+        x, y = nx, ny
+
+for _ in range(m):
+    s, e = map(int, sys.stdin.readline().rstrip().split())
+    if find(s) == find(e):
+        print(1)
+    else:
+        print(0)
