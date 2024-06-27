@@ -1,5 +1,3 @@
-import sys
-input = lambda: sys.stdin.readline().rstrip()
 def union(i,j):
     r1, r2 = find(i),find(j)
     r1, r2 = min(r1,r2), max(r1,r2)
@@ -15,10 +13,12 @@ lines.sort(key=lambda x: (x[1],x[2]))
 
 parent = list(range(N))
 prev = lines[0]
-for i,s,e in lines[1:]:
-    if prev[2] >= s: union(i, prev[0])
+for i, s,e in lines:
+    if prev[2] >= s:
+        union(i, prev[0])
     prev = i,s,e
 
 for _ in range(Q):
     i,j = map(int,input().split())
     print(1 if find(i-1)==find(j-1) else 0)
+
