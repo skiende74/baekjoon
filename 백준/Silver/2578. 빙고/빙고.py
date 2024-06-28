@@ -2,8 +2,9 @@ from functools import reduce
 
 N = 5
 grid = [list(map(int,input().split())) for _ in range(N)]
-calls =[list(map(int,input().split())) for _ in range(N)]
-calls = reduce(lambda r,c: [*r,*c], calls, [])
+calls = []
+for _ in range(5): 
+    calls += list(map(int, input().split()))
 
 pose = {grid[i][j]:(i,j)
  for i in range(N)
