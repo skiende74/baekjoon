@@ -1,4 +1,5 @@
-from functools import reduce
+import sys
+input = sys.stdin.readline
 
 N = 5
 grid = [list(map(int,input().split())) for _ in range(N)]
