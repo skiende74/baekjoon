@@ -15,9 +15,10 @@ def getZ():
     for k in range(MIN, MAX+1):
         add = 0
         remove = 0
-        for n in range(0, 256+1):
-            if n<k: add += (k-n)*counter[n]
-            elif n>k: remove += (n-k)*counter[n]
+        for n in range(0, k):
+            add += (k-n)*counter[n]
+        for n in range(k+1, 256+1):    
+            remove += (n-k)*counter[n]
         if add>remove+B: continue
         cost = add+remove*2
         if cost <= min_cost:
