@@ -1,12 +1,16 @@
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Main{
-    public static ArrayList<ArrayList<Integer>> graphs = new ArrayList<>();
-    static boolean visited[];
+public class Main {
+    static ArrayList<Integer>[] graph;
+    static boolean[] visited;
+    static int N;
+    static int M;
     static int cnt = 0;
-    static void dfs(int v){
-        for(int i : graphs.get(v)) {
-            if (!visited[i]) {
+    static void dfs(int v) {
+        for (int i : graph[v]) {
+            if(!visited[i]) {
                 visited[i] = true;
                 cnt += 1;
                 dfs(i);
@@ -14,24 +18,24 @@ public class Main{
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner s = new Scanner(System.in);
-        int N = s.nextInt();
-        int M = s.nextInt();
+        N = s.nextInt();
+        M = s.nextInt();
         visited = new boolean[N+1];
-        visited[0] = true;
-        visited[1] = true;
-
+        graph = new ArrayList[N+1];
         for(int i = 0; i < N + 1; i++) {
-            graphs.add(new ArrayList<Integer>());
+            graph[i] = new ArrayList<>();
         }
-        for(int i = 0; i < M; i++) {
+        for (int k = 0; k < M; k++) {
+            int i = s.nextInt();
             int j = s.nextInt();
-            int k = s.nextInt();
-            graphs.get(j).add(k);
-            graphs.get(k).add(j);
+            graph[i].add(j);
+            graph[j].add(i);
         }
+        visited[1] = true;
         dfs(1);
         System.out.println(cnt);
+        s.close();
     }
 }
