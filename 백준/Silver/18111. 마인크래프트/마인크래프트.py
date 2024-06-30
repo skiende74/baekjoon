@@ -1,7 +1,13 @@
+from collections import defaultdict
 import sys
 input = sys.stdin.readline
 N, M, B = map(int,input().split())
 grid = [list(map(int,input().split())) for _ in range(N)]
+
+counter = defaultdict(lambda:0)
+for i in range(N):
+    for j in range(M):
+        counter[grid[i][j]] += 1
 
 MIN,MAX = min(map(min, grid)), max(map(max, grid))
 def getZ(): 
@@ -9,10 +15,9 @@ def getZ():
     for k in range(MIN, MAX+1):
         add = 0
         remove = 0
-        for i in range(N):
-            for j in range(M):
-                if grid[i][j]<k: add += k-grid[i][j]
-                elif grid[i][j]>k: remove += grid[i][j]-k
+        for n in range(0, 256+1):
+            if n<k: add += (k-n)*counter[n]
+            elif n>k: remove += (n-k)*counter[n]
         if add>remove+B: continue
         cost = add+remove*2
         if cost <= min_cost:
