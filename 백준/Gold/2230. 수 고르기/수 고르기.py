@@ -7,7 +7,7 @@ seq.sort()
 i,j = 0, 1
 result = 2*10**9
 for i in range(N-1):
-    while (seq[j] - seq[i] < M or i >= j) and j<N-1: j += 1
-    if seq[j] - seq[i] < M: break
+    while j<N and seq[j] - seq[i] < M : j += 1
+    if j == N: break
     result = min(result, seq[j] - seq[i])
 print(result)
