@@ -4,7 +4,7 @@ from collections import defaultdict
 N, K = map(int, input().split())
 seq = list(map(int,input().split()))
 
-ans = 0
+ans = 1
 counter = defaultdict(lambda: 0)
 counter[seq[0]] = 1
 i, j = 0, 0
