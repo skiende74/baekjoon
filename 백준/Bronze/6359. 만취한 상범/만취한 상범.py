@@ -1,8 +1,4 @@
-T = int(input())
-for _ in range(T):
+for _ in range(int(input())):
     N = int(input())
-    seq = [False]*(N+1)
-    for i in range(1, N+1):
-        for j in range(i, N+1, i):
-            seq[j] = not seq[j]
-    print(sum(seq))    
+    seq = [1 for i in range(1,N+1) if int(i**0.5)**2==i]
+    print(sum(seq))
