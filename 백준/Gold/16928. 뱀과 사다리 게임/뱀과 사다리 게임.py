@@ -1,27 +1,22 @@
-
-from collections import deque
-
-def bfs(i):
-    Q = deque([(i,0)])
-    while Q:
-        i, d = Q.popleft()
-
-        if i == 100: break
-        for j in [j for j in range(i, min(i+6,100)+1)]:
+from heapq import heappop, heappush
+def dijkstra(i):
+    PQ = [(0, i)]
+    while PQ:
+        d, i = heappop(PQ)
+        for j in [ j for j in range(i+1, min(i+6, 100)+1)]:
             if dist[j] <= d+1: continue
             dist[j] = d+1
             if snake[j] != j:
-                if dist[snake[j]] <= dist[j]: continue
-                dist[snake[j]] = dist[j]
-                Q.append((snake[j], dist[j]))
+                if dist[snake[j]] > dist[j]: 
+                    dist[snake[j]] = dist[j]
+                    heappush(PQ, (dist[j], snake[j]))
                 continue
             if ladder[j] != j:
-                if dist[ladder[j]] <= dist[j]: continue
-                dist[ladder[j]] = dist[j]
-                Q.append((ladder[j], dist[j]))
+                if dist[ladder[j]] > dist[j]: 
+                    dist[ladder[j]] = dist[j]
+                    heappush(PQ, (dist[j], ladder[j]))
                 continue
-            Q.append((j, dist[j]))
-
+            heappush(PQ, (d+1, j))
 import sys
 input = sys.stdin.readline
 M, K = map(int,input().split())
@@ -35,5 +30,5 @@ for _ in range(K):
 
 dist = [1000]*101
 dist[1] = 0
-bfs(1)
+dijkstra(1)
 print(dist[100])
