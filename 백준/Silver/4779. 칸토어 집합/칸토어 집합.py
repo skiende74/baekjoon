@@ -1,8 +1,10 @@
 def recursive(N):
-    if N == 0: return '-'
-    p = recursive(N-1)
-    return p + ' '*(3**(N-1)) + p
+    if dp[N] != '': return dp[N]
+    dp[N] = recursive(N-1) + ' '*(3**(N-1)) + recursive(N-1)
+    return dp[N]
     
+dp = ['']*14
+dp[0] = '-'
 import sys
 lines = list(map(int, sys.stdin.read().split()))
 for n in lines:
