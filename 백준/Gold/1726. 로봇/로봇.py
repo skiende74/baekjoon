@@ -1,6 +1,5 @@
 from heapq import heappop, heappush
 
-opposite = {1:2,2:1,3:4,4:3}
 left = {1:4,2:3,3:1,4:2}
 right = {1:3,2:4,3:2,4:1}
 
@@ -21,9 +20,7 @@ def bfs(i,j, dir):
         if can_move(i,j) and dist[i][j][right[dir]] > d+1:
             dist[i][j][right[dir]] = d+1
             heappush(PQ, (d+1, i,j,right[dir]))
-        if can_move(i,j) and dist[i][j][opposite[dir]] > d+2:
-            dist[i][j][opposite[dir]] = d+2
-            heappush(PQ, (d+2, i,j,opposite[dir]))
+
         di,dj = didj[dir]
         i2,j2 = i, j
         for _ in range(3):
@@ -33,6 +30,7 @@ def bfs(i,j, dir):
             dist[i2][j2][dir] = d+1
             heappush(PQ, (d+1, i2,j2,dir))
         
+
 import sys
 input = sys.stdin.readline
 N, M = map(int,input().split())
