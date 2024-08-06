@@ -1,15 +1,22 @@
-from itertools import combinations
+def dfs(i):
+    global total, ans
+    if len(selected) == N//2:
+        ans = min(ans, abs(total))
+        return
+    for j in range(i, N):
+        diff = sum(grid[j][k] + grid[k][j] for k in range(N))
+        selected.add(j)
+        total += diff
+        dfs(j+1)
+        total -= diff
+        selected.remove(j)
+
 
 N = int(input())
-grid = [list(map(int,input().split())) for _ in range(N)]
+grid = [ list(map(int,input().split())) for _ in range(N) ]
 
+selected = set(range(N))
+total = -sum(map(sum, grid))
 ans = 10**9
-for comb in combinations(range(N), N//2):
-    res = 0
-    for a,b in combinations(comb, 2):
-        res += grid[a][b] + grid[b][a]
-    res2 = 0
-    for a,b in combinations(set(range(N))-set(comb), 2):
-        res2 += grid[a][b] + grid[b][a]
-    ans = min(ans, abs(res-res2))    
+dfs(0)
 print(ans)
