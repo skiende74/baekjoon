@@ -1,40 +1,53 @@
-
-from collections import deque
-
-def bfs(i,j):
-    Q = deque([(i,j)])
-    grid0 = [r.copy() for r in grid]
-    while Q:
-        i,j = Q.popleft()
-        
-        n = 0
-        for di, dj in zip([0,0,-1,1],[-1,1,0,0]):
-            i2, j2 = i+di, j+dj
-            if not (0<=i2<N and 0<=j2<M): continue
-            if grid0[i2][j2] == 0: n+=1
-            if visited[i2][j2] or grid0[i2][j2]==0: continue
-            visited[i2][j2] = True
-            Q.append((i2, j2))
-        grid[i][j] = max(0, grid[i][j]-n)
-
 import sys
-input = sys.stdin.readline
-N, M =map(int,input().split())
-grid = [list(map(int,input().split())) for _ in range(N) ]
-visited = [[False]*(M) for _ in range(N) ]
+input=sys.stdin.readline
+from collections import deque
+N,M=map(int,input().split())
+dx=[1,0,-1,0]
+dy=[0,1,0,-1]
+arr=[list(map(int,input().split())) for _ in range (N)]
 
 
-for k in range(1, N*M+1):
-    cnt = 0
-    visited = [[False]*M for _ in range(N)]
-    for i in range(N):
-        for j in range(M):
-            if visited[i][j] or grid[i][j] == 0: continue
-            visited[i][j] = True
-            cnt += 1
-            bfs(i,j)
+def BFS(x,y):
+    q=deque([])
+    q.append((x,y))
+    visited[x][y]=True
+    melt=[]
+    while q:
+        x,y=q.popleft()
+        cnt=0
+        for i in range (4):
+            nx=x+dx[i]
+            ny=y+dy[i]
+            if nx<0 or ny<0 or nx>=N or ny>=M:
+                continue
+            if arr[nx][ny]==0:
+                cnt+=1
+            elif not visited[nx][ny] and arr[nx][ny]>0:
+                visited[nx][ny]=True
+                q.append((nx,ny))
+        if cnt>0:
+            melt.append((x,y,cnt))
+    for x,y,cnt in melt:
+        arr[x][y]=max(0,arr[x][y]-cnt)
 
-    if cnt>1: 
-        print(k-1)
+
+sec=0
+
+while True:
+    visited=[[False]*M for _ in range (N)]
+    cnt=0
+    for i in range (N):
+        for j in range (M):
+            if not visited[i][j] and arr[i][j]>0:
+                cnt+=1
+                BFS(i,j)
+
+    if cnt>1:
         break
-else: print(0)
+    if cnt==0:
+        sec=0
+        break
+    sec+=1
+
+
+print(sec)
