@@ -6,27 +6,16 @@ def bfs(i,j):
     grid0 = [r.copy() for r in grid]
     while Q:
         i,j = Q.popleft()
-        sea_points = [(i+di, j+dj) for di, dj in zip([0,0,-1,1],[-1,1,0,0]) if 0<=i+di<N and 0<=j+dj<M and grid0[i+di][j+dj] == 0]
-        grid[i][j] = max(0, grid0[i][j]-len(sea_points))
-
+        
+        n = 0
         for di, dj in zip([0,0,-1,1],[-1,1,0,0]):
             i2, j2 = i+di, j+dj
             if not (0<=i2<N and 0<=j2<M): continue
+            if grid0[i2][j2] == 0: n+=1
             if visited[i2][j2] or grid0[i2][j2]==0: continue
             visited[i2][j2] = True
             Q.append((i2, j2))
-    # print(*grid)
-
-def bfs_check(i,j):
-    Q = deque([(i,j)])
-    while Q:
-        i,j = Q.popleft()
-        for di, dj in zip([0,0,-1,1],[-1,1,0,0]):
-            i2, j2 = i+di, j+dj
-            if not (0<=i2<N and 0<=j2<M): continue
-            if visited[i2][j2] or grid[i2][j2] == 0: continue
-            visited[i2][j2] = True
-            Q.append((i2, j2))
+        grid[i][j] = max(0, grid[i][j]-n)
 
 import sys
 input = sys.stdin.readline
