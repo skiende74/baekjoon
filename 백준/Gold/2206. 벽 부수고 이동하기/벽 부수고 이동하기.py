@@ -5,6 +5,7 @@ N, M = map(int, input().split())
 grid = [list(map(int,input())) for _ in range(N)]
 visited = [[[0]*2 for _ in range(M)] for _ in range(N)]
 visited[0][0][0]=1
+
 def bfs():
     Q = deque([(0,0,0)])
     while Q:
@@ -18,13 +19,10 @@ def bfs():
             if grid[i2][j2] == 1 and a==0:
                 visited[i2][j2][1] = visited[i][j][0] + 1
                 Q.append((i2,j2, 1))
-            elif visited[i2][j2][a]==0 and grid[i2][j2]==0:
+            if grid[i2][j2]==0 and visited[i2][j2][a]==0:
                 visited[i2][j2][a] = visited[i][j][a] + 1
                 Q.append((i2,j2, a))
             
     return -1
-
-
-walls = [(i,j) for i in range(N) for j in range(M) if grid[i][j]==1]
 
 print(bfs())
