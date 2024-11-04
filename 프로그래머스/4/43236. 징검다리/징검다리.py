@@ -1,10 +1,10 @@
 def solution(distance, rocks, n):
     rocks.sort()
-    left, right = 0, 10**9
-    while left < right:
-        mid = (left + right+1) // 2            
+    left, right = -1, 10**9+1
+    while left+1 < right:
+        mid = (left + right) // 2            
         if is_ok(distance, rocks, n, mid): left = mid
-        else: right=mid-1
+        else: right=mid
 
     return left
 
