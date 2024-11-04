@@ -1,10 +1,10 @@
 # [level 2] 더 맵게 - 42626 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42626) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42626?language=javascript) 
 
 ### 성능 요약
 
-메모리: 49.7 MB, 시간: 1597.48 ms
+메모리: 102 MB, 시간: 378.41 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 09월 19일 03:53:36
+2024년 11월 05일 01:05:54
 
 ### 문제 설명
 
