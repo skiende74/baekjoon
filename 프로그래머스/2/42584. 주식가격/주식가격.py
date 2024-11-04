@@ -1,11 +1,11 @@
 def solution(prices):
     N = len(prices)
-    answers = [0]*N
-    stack = [(0, N-1)]
-    for i in range(N-1, -1, -1):
-        p = prices[i]
-        while stack and stack[-1][0] >= p: stack.pop()
-        answers[i] = stack[-1][1]-i
-        stack.append((p, i))
-    
-    return answers
+    prices[-1]=(-1)
+    answer = [0]*N
+    stack = [(prices[0], 0)]
+    for i in range(1, N):
+        while stack and stack[-1][0] > prices[i]:
+            el = stack.pop()
+            answer[el[1]] = i-el[1]
+        stack.append((prices[i], i))
+    return answer
